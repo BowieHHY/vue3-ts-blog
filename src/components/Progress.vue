@@ -1,5 +1,5 @@
 <template>
-  <progress class="progress" />
+  <progress class="progress is-primary is-small" />
 </template>
 
 <script lang="ts">

@@ -27,6 +27,7 @@ import { Period } from "@/types";
 import { todayPost, thisWeek, thisMonth } from "@/mock";
 import moment from "moment";
 import TimeLinePost from "./TimeLinePost.vue";
+import { useStore } from "@/store";
 
 const delay = (ms: number) =>
   new Promise((res) => {
@@ -46,6 +47,9 @@ export default defineComponent({
     const handleSelect = (index: String) => {
       selectedPeriod.value = period[Number(index)];
     };
+
+    const store = useStore();
+    console.log(store.getState());
 
     await delay(2000);
 

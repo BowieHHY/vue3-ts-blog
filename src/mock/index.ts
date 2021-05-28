@@ -12,17 +12,20 @@ export const basePost: Post = {
 
 export const todayPost: Post = {
   ...basePost,
+  id: 1,
   title: '今天'
 }
 
 export const thisWeek: Post = {
   ...basePost,
+  id: 2,
   title: '本周',
   createDate: moment().subtract(2, 'days')
 }
 
 export const thisMonth = {
   ...basePost,
+  id: 3,
   title: '本月',
   createDate: moment().subtract(2, 'weeks')
 }
