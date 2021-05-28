@@ -1,6 +1,11 @@
 <template>
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-    <el-menu-item v-for="(item, idx) in period" :key="idx" :index="idx + ''">
+    <el-menu-item
+      data-test="period"
+      v-for="(item, idx) in period"
+      :key="idx"
+      :index="idx + ''"
+    >
       {{ item }}
     </el-menu-item>
   </el-menu>

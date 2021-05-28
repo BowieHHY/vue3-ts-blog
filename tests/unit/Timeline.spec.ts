@@ -18,7 +18,11 @@ describe('TimeLine.vue', () => {
     // expect(periods.length).toBe(3)
 
     //method two
-    expect(wrapper.findAll('li')).toHaveLength(3)
+    // expect(wrapper.findAll('li')).toHaveLength(3) 
+
+    //method three
+    expect(wrapper.findAll("[data-test='period']")).toHaveLength(3)
+
 
   })
 })
