@@ -1,5 +1,10 @@
 <template>
-  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+  <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+  >
     <el-menu-item
       data-test="period"
       v-for="(item, idx) in period"
@@ -9,6 +14,7 @@
       {{ item }}
     </el-menu-item>
   </el-menu>
+  {{ selectedPeriod }}
 </template>
 
 <script lang="ts">
@@ -21,9 +27,15 @@ export default defineComponent({
   setup() {
     const activeIndex = ref("0");
     const period: Period[] = ["今天", "本周", "本月"];
+    const selectedPeriod = ref<Period>("今天");
+    const handleSelect = (index: String) => {
+      selectedPeriod.value = period[Number(index)];
+    };
     return {
       activeIndex,
       period,
+      selectedPeriod,
+      handleSelect,
     };
   },
 });
