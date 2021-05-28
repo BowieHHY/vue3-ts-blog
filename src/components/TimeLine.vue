@@ -1,0 +1,28 @@
+<template>
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu-item v-for="(item, idx) in period" :key="idx" :index="idx + ''">
+      {{ item }}
+    </el-menu-item>
+  </el-menu>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import { Period } from "@/types";
+
+export default defineComponent({
+  name: "TimeLine",
+  props: {},
+  setup() {
+    const activeIndex = ref("0");
+    const period: Period[] = ["今天", "本周", "本月"];
+    return {
+      activeIndex,
+      period,
+    };
+  },
+});
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped></style>
