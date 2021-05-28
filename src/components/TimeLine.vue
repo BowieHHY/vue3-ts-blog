@@ -28,6 +28,11 @@ import { todayPost, thisWeek, thisMonth } from "@/mock";
 import moment from "moment";
 import TimeLinePost from "./TimeLinePost.vue";
 
+const delay = (ms: number) =>
+  new Promise((res) => {
+    setTimeout(res, ms);
+  });
+
 export default defineComponent({
   name: "TimeLine",
   components: {
@@ -41,6 +46,8 @@ export default defineComponent({
     const handleSelect = (index: String) => {
       selectedPeriod.value = period[Number(index)];
     };
+
+    await delay(2000);
 
     //showData
     const posts = computed(() =>

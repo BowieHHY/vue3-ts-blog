@@ -1,11 +1,27 @@
 <template>
   <div id="nav">
-    <router-link to="/"></router-link>
-
-    <router-view />
+    <Suspense>
+      <template #default>
+        <TimeLine />
+      </template>
+      <template #fallback>
+        <Progress />
+      </template>
+    </Suspense>
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import Progress from "./components/Progress.vue";
+import TimeLine from "./components/TimeLine.vue";
+
+export default defineComponent({
+  components: { TimeLine, Progress },
+  name: "App",
+  props: {},
+});
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
