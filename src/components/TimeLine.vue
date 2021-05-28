@@ -15,11 +15,8 @@
         {{ item }}
       </el-menu-item>
     </el-menu>
-    <el-row>
-      <el-col data-test="post" :span="24" v-for="item in posts" :key="item.id">
-        <p>{{ item.title }}</p>
-        <p>{{ item.createDate.format("YYYY-MM-DD") }}</p>
-      </el-col>
+    <el-row class="TimeLinePost">
+      <TimeLinePost v-for="post in posts" :key="post.id" :post="post"></TimeLinePost>
     </el-row>
   </div>
 </template>
@@ -29,11 +26,15 @@ import { defineComponent, ref, computed } from "vue";
 import { Period } from "@/types";
 import { todayPost, thisWeek, thisMonth } from "@/mock";
 import moment from "moment";
+import TimeLinePost from "./TimeLinePost.vue";
 
 export default defineComponent({
   name: "TimeLine",
+  components: {
+    TimeLinePost,
+  },
   props: {},
-  setup() {
+  async setup() {
     const activeIndex = ref("0");
     const period: Period[] = ["今天", "本周", "本月"];
     const selectedPeriod = ref<Period>("今天");
