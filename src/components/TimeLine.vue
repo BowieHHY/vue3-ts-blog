@@ -16,7 +16,7 @@
       </el-menu-item>
     </el-menu>
     <el-row>
-      <el-col :span="24" v-for="item in posts" :key="item.id">
+      <el-col data-test="post" :span="24" v-for="item in posts" :key="item.id">
         <p>{{ item.title }}</p>
         <p>{{ item.createDate.format("YYYY-MM-DD") }}</p>
       </el-col>
