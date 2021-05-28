@@ -1,20 +1,22 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    class="el-menu-demo"
-    mode="horizontal"
-    @select="handleSelect"
-  >
-    <el-menu-item
-      data-test="period"
-      v-for="(item, idx) in period"
-      :key="idx"
-      :index="idx + ''"
+  <div class="TimeLine">
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
     >
-      {{ item }}
-    </el-menu-item>
-  </el-menu>
-  {{ selectedPeriod }}
+      <el-menu-item
+        data-test="period"
+        v-for="(item, idx) in period"
+        :key="idx"
+        :index="idx + ''"
+      >
+        {{ item }}
+      </el-menu-item>
+    </el-menu>
+    {{ selectedPeriod }}
+  </div>
 </template>
 
 <script lang="ts">
@@ -42,4 +44,9 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.TimeLine {
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px 5px #f5f3f3;
+}
+</style>
