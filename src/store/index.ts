@@ -15,14 +15,14 @@ interface PostsState {
 }
 const initialPostsState = (): PostsState => ({
   ids: [
-    // todayPost.id.toString(),
-    // thisWeek.id.toString(),
-    // thisMonth.id.toString()
+    todayPost.id.toString(),
+    thisWeek.id.toString(),
+    thisMonth.id.toString()
   ],
   all: {
-    // [todayPost.id]: todayPost,
-    // [thisWeek.id]: thisWeek,
-    // [thisMonth.id]: thisWeek
+    [todayPost.id]: todayPost,
+    [thisWeek.id]: thisWeek,
+    [thisMonth.id]: thisMonth
   },
   loaded: false
 })
