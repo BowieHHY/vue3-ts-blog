@@ -7,9 +7,11 @@
     </el-form>
     <el-row type="flex">
       <el-col :span="12">
-        <div contenteditable id="markdowm" ref="contentEditable">写的内容</div>
+        <div contenteditable id="markdowm" ref="contentEditable" @input="handleEdit" />
       </el-col>
-      <el-col :span="12"> 展示的内容 </el-col>
+      <el-col :span="12">
+        {{ markdown }}
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -31,14 +33,26 @@ export default defineComponent({
     const contentEditable = ref<null | HTMLDivElement>(null);
 
     console.log(contentEditable.value); //null
+    const markdown = ref(props.post.markdown);
+
+    const handleEdit = () => {
+      // @ts-ignore
+      markdown.value = contentEditable.value.innerText;
+    };
 
     onMounted(() => {
       console.log(contentEditable.value); //div
+
+      // markdown -->div
+      // @ts-ignore
+      contentEditable.value.innerText = markdown.value;
     });
 
     return {
       title,
       contentEditable,
+      markdown,
+      handleEdit,
     };
   },
 });
