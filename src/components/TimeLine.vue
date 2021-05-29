@@ -51,6 +51,10 @@ export default defineComponent({
     const store = useStore();
     console.log(store.getState());
 
+    if (!store.getState().posts.loaded) {
+      await store.fetchPosts(); // main.ts 中打印 axios url /posts
+    }
+
     const allPosts = store.getState().posts.ids.reduce<Post[]>((acc, id) => {
       const post = store.getState().posts.all[id];
       return acc.concat(post);

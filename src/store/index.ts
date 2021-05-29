@@ -1,6 +1,7 @@
 import { reactive } from "vue";
 import { todayPost, thisWeek, thisMonth } from "@/mock";
 import { Post } from "@/types";
+import axios from 'axios'
 
 /**
  * posts: {
@@ -15,14 +16,14 @@ interface PostsState {
 }
 const initialPostsState = (): PostsState => ({
   ids: [
-    todayPost.id.toString(),
-    thisWeek.id.toString(),
-    thisMonth.id.toString()
+    // todayPost.id.toString(),
+    // thisWeek.id.toString(),
+    // thisMonth.id.toString()
   ],
   all: {
-    [todayPost.id]: todayPost,
-    [thisWeek.id]: thisWeek,
-    [thisMonth.id]: thisMonth
+    // [todayPost.id]: todayPost,
+    // [thisWeek.id]: thisWeek,
+    // [thisMonth.id]: thisMonth
   },
   loaded: false
 })
@@ -43,6 +44,23 @@ class Store {
 
   public getState(): State {
     return this.state
+  }
+
+  async fetchPosts() {
+    const res = await axios.get<Post[]>("/posts");
+    // 处理数据
+    const ids: string[] = []
+    const all: Record<string, Post> = {}
+    for (const post of res.data) {
+      ids.push(post.id.toString())
+      all[post.id] = post
+    }
+
+    this.state.posts = {
+      ids,
+      all,
+      loaded: true,
+    }
   }
 }
 
