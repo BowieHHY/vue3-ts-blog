@@ -61,7 +61,7 @@ export default defineComponent({
     }, []);
 
     console.log(allPosts);
-    await delay(1000);
+    // await delay(1000);
 
     //showData
     const posts = computed(() =>
