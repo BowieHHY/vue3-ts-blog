@@ -1,23 +1,14 @@
 <template>
   <div id="nav">
-    <Suspense>
-      <template #default>
-        <TimeLine />
-      </template>
-      <template #fallback>
-        <Progress />
-      </template>
-    </Suspense>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Progress from "./components/Progress.vue";
-import TimeLine from "./components/TimeLine.vue";
 
 export default defineComponent({
-  components: { TimeLine, Progress },
+  components: {},
   name: "App",
   props: {},
 });

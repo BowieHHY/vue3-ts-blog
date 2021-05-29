@@ -19,4 +19,5 @@ axios.get = async (url: string) => {
 const app = createApp(App)
 
 app.use(ElementPlus)
-app.use(router).mount('#app')
+app.use(router)
+app.mount('#app')

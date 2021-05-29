@@ -1,19 +1,23 @@
 <template>
-  <section class="home">
-    <div class="container">
+  <Suspense>
+    <template #default>
       <TimeLine />
-    </div>
-  </section>
+    </template>
+    <template #fallback>
+      <Progress />
+    </template>
+  </Suspense>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TimeLine from "@/components/TimeLine.vue"; // @ is an alias to /src
+import Progress from "@/components/Progress.vue";
+import TimeLine from "@/components/TimeLine.vue";
 
 export default defineComponent({
+  components: { TimeLine, Progress },
   name: "Home",
-  components: {
-    TimeLine,
-  },
+  props: {},
 });
 </script>
+<style></style>
