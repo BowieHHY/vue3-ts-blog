@@ -5,12 +5,18 @@
         <el-input v-model="title"></el-input>
       </el-form-item>
     </el-form>
+    <el-row type="flex">
+      <el-col :span="12">
+        <div contenteditable id="markdowm" ref="contentEditable">写的内容</div>
+      </el-col>
+      <el-col :span="12"> 展示的内容 </el-col>
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Post } from "@/types";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "PostsWritter",
@@ -22,8 +28,17 @@ export default defineComponent({
   },
   setup(props) {
     const title = ref(props.post.title);
+    const contentEditable = ref<null | HTMLDivElement>(null);
+
+    console.log(contentEditable.value); //null
+
+    onMounted(() => {
+      console.log(contentEditable.value); //div
+    });
+
     return {
       title,
+      contentEditable,
     };
   },
 });

@@ -1,7 +1,8 @@
 <template>
   <nav class="Navbar">
-    <el-row type="flex" justify="space-around">
-      <el-col>
+    <el-row type="flex" justify="space-between">
+      <el-col :span="12"> </el-col>
+      <el-col :span="12" class="text-right">
         <router-link class="el-button" to="/posts/new"> 添加博客 </router-link>
       </el-col>
     </el-row>
@@ -21,5 +22,9 @@ export default defineComponent({
 <style scoped>
 #nav a {
   text-decoration: none;
+}
+
+.text-right {
+  text-align: right;
 }
 </style>
