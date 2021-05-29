@@ -1,14 +1,15 @@
 <template>
   <div id="nav">
+    <Navbar />
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import Navbar from "./components/Navbar.vue";
 export default defineComponent({
-  components: {},
+  components: { Navbar },
   name: "App",
   props: {},
 });
@@ -23,7 +24,7 @@ export default defineComponent({
 }
 
 #nav {
-  padding: 30px;
+  padding: 30px 200px;
 }
 
 #nav a {
