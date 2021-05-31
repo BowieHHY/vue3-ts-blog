@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import PostsWritter from "@/components/PostsWritter.vue";
+import PostsWritter from "@/components/PostsWriter.vue";
 import { Post } from "@/types";
 import moment from "moment";
 import { defineComponent } from "vue";
