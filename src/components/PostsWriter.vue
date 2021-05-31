@@ -5,7 +5,7 @@
         <el-input v-model="title"></el-input>
       </el-form-item>
     </el-form>
-    <el-row type="flex" justify="space-between">
+    <el-row class="m-3" type="flex" justify="space-between">
       <el-col :span="11">
         <div contenteditable id="markdowm" ref="contentEditable" @input="handleEdit" />
       </el-col>
@@ -13,6 +13,7 @@
         <div v-html="html"></div>
       </el-col>
     </el-row>
+    <el-button type="primary" @click="handleSubmit">保存</el-button>
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, ctx) {
+    //标题
     const title = ref(props.post.title);
     const contentEditable = ref<null | HTMLDivElement>(null);
 
@@ -43,6 +45,19 @@ export default defineComponent({
     const handleEdit = () => {
       // @ts-ignore
       markdown.value = contentEditable.value.innerText;
+    };
+
+    const handleSubmit = () => {
+      // 1.可通过 store 进行存储
+
+      // 2. 将数据提交到父级
+      const post: Post = {
+        ...props.post,
+        title: title.value,
+        markdown: markdown.value,
+        html: html.value,
+      };
+      ctx.emit("savePost", post);
     };
 
     const options: MarkedOptions = {
@@ -74,10 +89,15 @@ export default defineComponent({
       markdown,
       handleEdit,
       html,
+      handleSubmit,
     };
   },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.m-3 {
+  margin: 3rem 0;
+}
+</style>

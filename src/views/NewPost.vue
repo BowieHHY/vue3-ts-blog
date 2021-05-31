@@ -1,14 +1,16 @@
 <template>
   <div class="NewPost">
-    <PostsWritter :post="post"></PostsWritter>
+    <PostsWritter :post="post" @savePost="handleSave"></PostsWritter>
   </div>
 </template>
 
 <script lang="ts">
 import PostsWritter from "@/components/PostsWriter.vue";
+import { useStore } from "@/store";
 import { Post } from "@/types";
 import moment from "moment";
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { PostsWritter },
@@ -24,8 +26,19 @@ export default defineComponent({
       createDate: moment(),
     };
 
+    const store = useStore();
+    const router = useRouter();
+    const handleSave = async (post: Post) => {
+      console.log("save", post);
+      //存储到store中
+
+      //跳转
+      router.push("/");
+    };
+
     return {
       post,
+      handleSave,
     };
   },
 });
