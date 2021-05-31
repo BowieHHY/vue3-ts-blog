@@ -49,18 +49,24 @@ class Store {
   async fetchPosts() {
     const res = await axios.get<Post[]>("/posts");
     // 处理数据
-    const ids: string[] = []
-    const all: Record<string, Post> = {}
+    // const ids: string[] = []
+    // const all: Record<string, Post> = {}
     for (const post of res.data) {
-      ids.push(post.id.toString())
-      all[post.id] = post
+      if (!this.state.posts.ids.includes(post.id.toString())) {
+        this.state.posts.ids.push(post.id.toString())
+        this.state.posts.all[post.id] = post
+      }
     }
 
-    this.state.posts = {
-      ids,
-      all,
-      loaded: true,
-    }
+    this.state.posts.loaded = true;
+
+  }
+
+  async createPost(post: Post) {
+    const response = await axios.post<Post>("/posts", post)
+    console.log('createPost', response)
+    this.state.posts.all[response.data.id] = response.data
+    this.state.posts.ids.push(response.data.id.toString())
   }
 }
 

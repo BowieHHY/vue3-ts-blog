@@ -32,6 +32,8 @@ export default defineComponent({
       console.log("save", post);
       //存储到store中
 
+      await store.createPost(post);
+
       //跳转
       router.push("/");
     };
