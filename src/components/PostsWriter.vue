@@ -2,18 +2,26 @@
   <div class="PostsWritter">
     <el-form ref="postForm">
       <el-form-item label="博客标题">
-        <el-input v-model="title"></el-input>
+        <el-input data-test="post-title" v-model="title"></el-input>
       </el-form-item>
     </el-form>
     <el-row class="m-3" type="flex" justify="space-between">
       <el-col :span="11">
-        <div contenteditable id="markdowm" ref="contentEditable" @input="handleEdit" />
+        <div
+          data-test="markdown"
+          contenteditable
+          id="markdowm"
+          ref="contentEditable"
+          @input="handleEdit"
+        />
       </el-col>
       <el-col :span="11">
         <div v-html="html"></div>
       </el-col>
     </el-row>
-    <el-button type="primary" @click="handleSubmit">保存</el-button>
+    <el-button data-test="submit-post" type="primary" @click="handleSubmit">
+      保存
+    </el-button>
   </div>
 </template>
 
