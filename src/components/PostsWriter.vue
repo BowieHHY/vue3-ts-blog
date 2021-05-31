@@ -19,7 +19,9 @@
 <script lang="ts">
 import { Post } from "@/types";
 import { defineComponent, onMounted, ref, watch } from "vue";
-import { parse } from "marked";
+import { parse, MarkedOptions } from "marked";
+import { highlightAuto } from "highlight.js";
+const debounce = require("lodash/debounce");
 
 export default defineComponent({
   name: "PostsWritter",
@@ -43,12 +45,17 @@ export default defineComponent({
       markdown.value = contentEditable.value.innerText;
     };
 
+    const options: MarkedOptions = {
+      highlight: (code: string) => highlightAuto(code).value,
+    };
+
+    // 延迟效果
+    const updated = (value: string) => {
+      html.value = parse(value, options);
+    };
     watch(
       () => markdown.value,
-      (value) => {
-        console.log(value);
-        html.value = parse(markdown.value);
-      },
+      debounce(updated, 500),
       { immediate: true } //立即执行
     );
     onMounted(() => {
