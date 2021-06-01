@@ -1,5 +1,5 @@
 <template>
-  <el-col class="TimeLinePost" data-test="post" :span="24">
+  <el-col class="TimeLinePost" data-test="post" :span="24" @click="toPost">
     <p>{{ post.title }}</p>
     <p>{{ post.createDate.format("YYYY-MM-DD") }}</p>
   </el-col>
@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Post } from "@/types";
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "TimeLinePost",
@@ -16,6 +17,15 @@ export default defineComponent({
       type: Object as () => Post,
       required: true,
     },
+  },
+  setup(props) {
+    const router = useRouter();
+    const toPost = () => {
+      router.push(`/posts/${props.post.id}`);
+    };
+    return {
+      toPost,
+    };
   },
 });
 </script>
