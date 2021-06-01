@@ -1,7 +1,7 @@
 <template>
   <Suspense>
     <template #default>
-      <ShowPostItem />
+      <EditPostItem />
     </template>
     <template #fallback>
       <Progress />
@@ -10,14 +10,14 @@
 </template>
 
 <script lang="ts">
-import ShowPostItem from "@/components/ShowPostItem.vue";
+import EditPostItem from "@/components/EditPostItem.vue";
 import Progress from "@/components/Progress.vue";
 import { useStore } from "@/store";
 import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
-  components: { ShowPostItem, Progress },
+  components: { EditPostItem },
   name: "ShowPost",
   props: {},
   setup() {

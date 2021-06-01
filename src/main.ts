@@ -34,6 +34,17 @@ axios.post = async (url: string, payload: Post) => {
   }
 }
 
+// @ts-ignore 不会检查类型
+axios.put = async (url: string, payload: Post) => {
+  console.log('axios url', url)
+  await delay(1000)
+  if (url === '/posts') {
+    return Promise.resolve({
+      data: { ...payload, }
+    })
+  }
+}
+
 const app = createApp(App)
 
 app.use(ElementPlus)
