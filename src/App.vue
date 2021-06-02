@@ -1,4 +1,5 @@
 <template>
+  <div id="modal"></div>
   <div id="nav">
     <Navbar />
     <router-view />

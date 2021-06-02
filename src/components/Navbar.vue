@@ -8,18 +8,27 @@
         </div>
       </el-col>
       <el-col :span="8" class="text-right">
-        <el-button icon="el-icon-circle-plus"> 登陆 </el-button>
-        <el-button icon="el-icon-s-custom"> 注册 </el-button>
+        <el-button type="primary" @click="modal.showModal" icon="el-icon-circle-plus">
+          登陆
+        </el-button>
+        <el-button @click="toLogin" icon="el-icon-s-custom"> 注册 </el-button>
       </el-col>
     </el-row>
   </nav>
+  <teleport to="#modal" v-if="modal.visible.value">
+    <!-- 插入组件 -->
+    <DialogItem title="title"></DialogItem>
+  </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useModal } from "@/utils/useModal";
+import DialogItem from "./DialogItem.vue";
 
 export default defineComponent({
+  components: { DialogItem },
   name: "Navbar",
   props: {},
   setup() {
@@ -30,9 +39,12 @@ export default defineComponent({
     const toHome = () => {
       router.push("/");
     };
+
     return {
       handleAdd,
       toHome,
+
+      modal: useModal(),
     };
   },
 });
