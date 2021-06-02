@@ -1,24 +1,29 @@
 <template>
-  <div class="TimeLine">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <el-menu-item
-        data-test="period"
-        v-for="(item, idx) in period"
-        :key="idx"
-        :index="idx + ''"
+  <el-row type="flex" justify="center">
+    <el-col :span="18" class="TimeLine">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
       >
-        {{ item }}
-      </el-menu-item>
-    </el-menu>
-    <el-row class="TimeLinePost">
-      <TimeLinePost v-for="post in posts" :key="post.id" :post="post"></TimeLinePost>
-    </el-row>
-  </div>
+        <el-menu-item
+          data-test="period"
+          v-for="(item, idx) in period"
+          :key="idx"
+          :index="idx + ''"
+        >
+          {{ item }}
+        </el-menu-item>
+        <el-menu-item class="float-r">
+          <el-button @click.native="handleAdd"> 添加博客 </el-button>
+        </el-menu-item>
+      </el-menu>
+      <el-row class="TimeLinePost">
+        <TimeLinePost v-for="post in posts" :key="post.id" :post="post"></TimeLinePost>
+      </el-row>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">
@@ -28,6 +33,7 @@ import { todayPost, thisWeek, thisMonth } from "@/mock";
 import moment from "moment";
 import TimeLinePost from "./TimeLinePost.vue";
 import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 
 const delay = (ms: number) =>
   new Promise((res) => {
@@ -41,6 +47,7 @@ export default defineComponent({
   },
   props: {},
   async setup() {
+    const router = useRouter();
     const activeIndex = ref("0");
     const period: Period[] = ["今天", "本周", "本月"];
     const selectedPeriod = ref<Period>("今天");
@@ -90,12 +97,17 @@ export default defineComponent({
       })
     );
     console.log([todayPost, thisWeek, thisMonth]);
+
+    const handleAdd = () => {
+      router.push("/posts/new");
+    };
     return {
       activeIndex,
       period,
       selectedPeriod,
       handleSelect,
       posts,
+      handleAdd,
     };
   },
 });
@@ -104,7 +116,10 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .TimeLine {
-  border-radius: 2%;
+  border-radius: 1%;
   box-shadow: 5px 5px 5px 5px #f5f3f3;
+}
+.TimeLine >>> .float-r {
+  float: right !important;
 }
 </style>

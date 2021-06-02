@@ -19,9 +19,16 @@
         <div v-html="html"></div>
       </el-col>
     </el-row>
-    <el-button data-test="submit-post" type="primary" @click="handleSubmit">
-      保存
-    </el-button>
+    <el-row type="flex" justify="space-between">
+      <el-col :span="4">
+        <el-button type="danger" @click="$router.go(-1)"> 返回 </el-button>
+      </el-col>
+      <el-col :span="4" class="text-right">
+        <el-button data-test="submit-post" type="primary" @click="handleSubmit">
+          保存
+        </el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -30,8 +37,10 @@ import { Post } from "@/types";
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { parse, MarkedOptions } from "marked";
 import { highlightAuto } from "highlight.js";
+import moment from "moment";
 const debounce = require("lodash/debounce");
 
+moment.locale("zh-cn");
 export default defineComponent({
   name: "PostsWritter",
   props: {
@@ -107,5 +116,8 @@ export default defineComponent({
 <style scoped>
 .m-3 {
   margin: 3rem 0;
+}
+.text-right {
+  text-align: right;
 }
 </style>

@@ -15,6 +15,9 @@ export default defineComponent({
 });
 </script>
 <style>
+body {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,7 +27,7 @@ export default defineComponent({
 }
 
 #nav {
-  padding: 30px 200px;
+  /* padding: 0px 200px; */
 }
 
 #nav a {
