@@ -8,14 +8,17 @@
         </div>
       </el-col>
       <el-col :span="8" class="text-right" v-if="auth">
-        <div>
-          <i class="el-icon-user-solid"></i>
-          <span>Admin</span>
+        <div class="flex-center">
+          <el-avatar src="https://api.prodless.com/avatar.png"></el-avatar>
+          <span class="m-1">Admin</span>
+          <el-button @click="logout"> 退出 </el-button>
         </div>
       </el-col>
       <el-col :span="8" class="text-right" v-else>
-        <el-button type="primary" icon="el-icon-circle-plus"> 登陆 </el-button>
-        <el-button @click="toRegister()" icon="el-icon-s-custom"> 注册 </el-button>
+        <el-button @click="toLogin" type="primary" icon="el-icon-circle-plus">
+          登陆
+        </el-button>
+        <el-button @click="toRegister" icon="el-icon-s-custom"> 注册 </el-button>
       </el-col>
     </el-row>
   </nav>
@@ -60,6 +63,10 @@ export default defineComponent({
       modal.showModal();
     };
 
+    const logout = async () => {
+      await store.signOut();
+    };
+
     return {
       handleAdd,
       toHome,
@@ -68,6 +75,7 @@ export default defineComponent({
       toLogin,
       toRegister,
       auth,
+      logout,
     };
   },
 });
@@ -95,5 +103,14 @@ export default defineComponent({
 
 .d-hover:hover {
   cursor: pointer;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.m-1 {
+  margin: 0 10px;
 }
 </style>
