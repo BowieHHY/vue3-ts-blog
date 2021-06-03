@@ -23,7 +23,7 @@ axios.get = async (url: string) => {
 }
 
 // @ts-ignore 不会检查类型
-axios.post = async (url: string, payload: Post) => {
+axios.post = async (url: string, payload: any) => {
   console.log('axios url', url)
   await delay(1000)
   const id = uuidv4()
@@ -31,6 +31,16 @@ axios.post = async (url: string, payload: Post) => {
     return Promise.resolve({
       data: { ...payload, id, }
     })
+  }
+  if (url === "/users") {
+    await delay(1000);
+    const id = uuidv4();
+
+    const { id: oldId, password, ...rest } = payload;
+
+    return Promise.resolve({
+      data: { ...rest, id },
+    });
   }
 }
 

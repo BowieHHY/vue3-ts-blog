@@ -7,11 +7,15 @@
           博客
         </div>
       </el-col>
-      <el-col :span="8" class="text-right">
-        <el-button type="primary" @click="modal.showModal" icon="el-icon-circle-plus">
-          登陆
-        </el-button>
-        <el-button @click="toLogin" icon="el-icon-s-custom"> 注册 </el-button>
+      <el-col :span="8" class="text-right" v-if="auth">
+        <div>
+          <i class="el-icon-user-solid"></i>
+          <span>Admin</span>
+        </div>
+      </el-col>
+      <el-col :span="8" class="text-right" v-else>
+        <el-button type="primary" icon="el-icon-circle-plus"> 登陆 </el-button>
+        <el-button @click="toRegister()" icon="el-icon-s-custom"> 注册 </el-button>
       </el-col>
     </el-row>
   </nav>
@@ -22,10 +26,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useModal } from "@/utils/useModal";
 import DialogItem from "./DialogItem.vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
   components: { DialogItem },
@@ -33,6 +38,11 @@ export default defineComponent({
   props: {},
   setup() {
     const router = useRouter();
+    const modal = useModal();
+    const store = useStore();
+    const auth = computed(() => store.getState().loginUser.currentUserId);
+
+    const title = ref<string>("");
     const handleAdd = () => {
       router.push("/posts/new");
     };
@@ -40,11 +50,24 @@ export default defineComponent({
       router.push("/");
     };
 
+    const toLogin = () => {
+      title.value = "登陆";
+      modal.showModal();
+    };
+
+    const toRegister = () => {
+      title.value = "注册";
+      modal.showModal();
+    };
+
     return {
       handleAdd,
       toHome,
-
-      modal: useModal(),
+      title,
+      modal,
+      toLogin,
+      toRegister,
+      auth,
     };
   },
 });

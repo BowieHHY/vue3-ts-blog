@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 import { todayPost, thisWeek, thisMonth } from "@/mock";
-import { Post } from "@/types";
+import { Post, User } from "@/types";
 import axios from 'axios'
 
 /**
@@ -13,6 +13,13 @@ interface PostsState {
   ids: string[];
   all: Record<string, Post>;
   loaded: boolean;
+}
+
+interface LoginUserState {
+  ids: string[];
+  all: Record<string, Post>;
+  loaded: boolean;
+  currentUserId?: string;
 }
 const initialPostsState = (): PostsState => ({
   ids: [
@@ -28,12 +35,21 @@ const initialPostsState = (): PostsState => ({
   loaded: false
 })
 
+const initialUserState = (): LoginUserState => ({
+  ids: [],
+  all: {},
+  loaded: false,
+  currentUserId: undefined,
+})
+
 interface State {
-  posts: PostsState
+  posts: PostsState,
+  loginUser: LoginUserState
 }
 
 const initialState = (): State => ({
-  posts: initialPostsState()
+  posts: initialPostsState(),
+  loginUser: initialUserState()
 })
 
 class Store {
@@ -72,6 +88,16 @@ class Store {
     const response = await axios.put<Post>("/posts", post)
     console.log('updatePost', response)
     this.state.posts.all[response.data.id] = response.data
+  }
+
+  async createUser(user: User) {
+    const response = await axios.post<Post>("/users", user);
+    this.state.loginUser.all[response.data.id] = response.data;
+    this.state.loginUser.ids.push(response.data.id.toString());
+    this.state.loginUser.currentUserId = response.data.id.toString();
+  }
+  async signOut() {
+    this.state.loginUser.currentUserId = undefined;
   }
 }
 
